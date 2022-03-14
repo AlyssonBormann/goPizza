@@ -1,5 +1,8 @@
+import "react-native-gesture-handler";
 import React from "react";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 import AppLoading from "expo-app-loading";
+import { StatusBar } from "expo-status-bar";
 import { ThemeProvider } from "styled-components";
 
 import { useFonts, DMSans_400Regular } from "@expo-google-fonts/dm-sans";
@@ -20,8 +23,11 @@ export default function App() {
   }
 
   return (
-    <ThemeProvider theme={theme}>
-      <SignIn />
-    </ThemeProvider>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <ThemeProvider theme={theme}>
+        <StatusBar style="light" translucent backgroundColor="transparent" />
+        <SignIn />
+      </ThemeProvider>
+    </GestureHandlerRootView>
   );
 }
