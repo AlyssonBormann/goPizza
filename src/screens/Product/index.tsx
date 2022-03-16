@@ -1,6 +1,8 @@
 import React, { useState } from "react";
-import { Platform, ScrollView, TouchableOpacity } from "react-native";
+import { Alert, Platform, ScrollView, TouchableOpacity } from "react-native";
 import * as ImagePicker from "expo-image-picker";
+import firestorage from "@react-native-firebase/firestore";
+import storage from "@react-native-firebase/storage";
 
 import { ButtonBack } from "@components/ButtonBack";
 import { Button } from "@components/Button";
@@ -24,6 +26,13 @@ import {
 
 export function Product() {
   const [image, setImage] = useState("");
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [priceSizeP, setPriceSizeP] = useState("");
+  const [priceSizeM, setPriceSizeM] = useState("");
+  const [priceSizeG, setPriceSizeG] = useState("");
+  const [priceSizeXG, setPriceSizeXG] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   async function handlePickerImage() {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -38,6 +47,61 @@ export function Product() {
         setImage(result.uri);
       }
     }
+  }
+
+  async function handleAdd() {
+    if (!name.trim()) {
+      return Alert.alert("Cadastro", "Informe o nome da pizza.");
+    }
+
+    if (!description.trim()) {
+      return Alert.alert("Cadastro", "Informe o descrição da pizza.");
+    }
+
+    if (!image.trim()) {
+      return Alert.alert("Cadastro", "Selecione  a imagem da pizza.");
+    }
+
+    if (!priceSizeP || !priceSizeM || !priceSizeG || !priceSizeXG) {
+      return Alert.alert(
+        "Cadastro",
+        "Informe o prço de todos os tamanhos da pizza."
+      );
+    }
+
+    setIsLoading(true);
+
+    const fileName = new Date().getTime();
+    const reference = storage().ref(`/pizzas/${fileName}.png`);
+
+    await reference.putFile(image);
+    const photo_url = await reference.getDownloadURL();
+
+    firestorage()
+      .collection("pizzas")
+      .add({
+        name,
+        name_insensitive: name.toLowerCase().trim(),
+        description,
+        prices_sizes: {
+          p: priceSizeP,
+          m: priceSizeM,
+          g: priceSizeG,
+          xg: priceSizeXG,
+        },
+        photo_url,
+        photo_path: reference.fullPath,
+      })
+      .then(() => {
+        Alert.alert("Cadastro", "Pizza cadastrada com sucesso!");
+      })
+      .catch((error) => {
+        console.log(error);
+        Alert.alert("Erro ao cadastrar", "Não foi possível cadastrar a pizza.");
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   }
 
   return (
@@ -61,25 +125,50 @@ export function Product() {
         <Form>
           <InputGroup>
             <Label>Nome</Label>
-            <Input />
+            <Input onChangeText={setName} value={name} />
           </InputGroup>
           <InputGroup>
             <InputGroupHeader>
               <Label>Descrição</Label>
               <MaxCharacteres>0 de 60 caracteres</MaxCharacteres>
             </InputGroupHeader>
-            <Input multiline={true} maxLength={60} style={{ height: 80 }} />
+            <Input
+              multiline={true}
+              maxLength={60}
+              style={{ height: 80 }}
+              onChangeText={setDescription}
+              value={description}
+            />
           </InputGroup>
 
           <InputGroup>
-            <Label>
-              <InputPrice size="P" />
-              <InputPrice size="M" />
-              <InputPrice size="G" />
-              <InputPrice size="XGG" />
-            </Label>
+            <InputPrice
+              size="P"
+              onChangeText={setPriceSizeP}
+              value={priceSizeP}
+            />
+
+            <InputPrice
+              size="M"
+              onChangeText={setPriceSizeM}
+              value={priceSizeM}
+            />
+            <InputPrice
+              size="G"
+              onChangeText={setPriceSizeG}
+              value={priceSizeG}
+            />
+            <InputPrice
+              size="XG"
+              onChangeText={setPriceSizeXG}
+              value={priceSizeXG}
+            />
           </InputGroup>
-          <Button title="Cadastrar pizza" />
+          <Button
+            title="Cadastrar pizza"
+            isLoading={isLoading}
+            onPress={handleAdd}
+          />
         </Form>
       </ScrollView>
     </Container>
