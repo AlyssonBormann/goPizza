@@ -9,6 +9,7 @@ import { useTheme } from "styled-components";
 import happyEmoji from "@assets/happy.png";
 import { Search } from "@components/Search";
 import { ProductCar, ProductProps } from "@components/ProductCar";
+import { Load } from "@components/Load";
 
 import {
   Container,
@@ -23,10 +24,13 @@ import {
 
 export function Home() {
   const { COLORS } = useTheme();
+  const [loading, setLoading] = useState(true);
   const [pizzas, setPizzas] = useState<ProductProps[]>([]);
   const [search, setSearch] = useState("");
 
   function fetchPizzas(value: string) {
+    setLoading(true);
+
     const formattedValue = value.toLowerCase().trim();
 
     firestore()
@@ -46,7 +50,8 @@ export function Home() {
       })
       .catch(() =>
         Alert.alert("Consulta", "Não foi possível realizar a consulta.")
-      );
+      )
+      .finally(() => setLoading(false));
   }
 
   function handleSearch() {
@@ -78,23 +83,29 @@ export function Home() {
         onChangeText={setSearch}
         value={search}
       />
-      <MenuHeader>
-        <Title>Cardápio</Title>
-        <MenuItemsNumber>
-          {pizzas.length} pizza{pizzas.length > 1 && "s"}
-        </MenuItemsNumber>
-      </MenuHeader>
-      <FlatList
-        data={pizzas}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => <ProductCar data={item} />}
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{
-          paddingTop: 20,
-          paddingBottom: 125,
-          marginHorizontal: 24,
-        }}
-      />
+      {loading ? (
+        <Load />
+      ) : (
+        <>
+          <MenuHeader>
+            <Title>Cardápio</Title>
+            <MenuItemsNumber>
+              {pizzas.length} pizza{pizzas.length > 1 && "s"}
+            </MenuItemsNumber>
+          </MenuHeader>
+          <FlatList
+            data={pizzas}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item }) => <ProductCar data={item} />}
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={{
+              paddingTop: 20,
+              paddingBottom: 125,
+              marginHorizontal: 24,
+            }}
+          />
+        </>
+      )}
     </Container>
   );
 }

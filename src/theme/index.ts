@@ -22,6 +22,8 @@ export default {
     TITLE: "#FFF",
 
     GRADIENT: ["#B83341", "#E03F50"],
+
+    LOAD: "#6633CC",
   },
 
   FONTS: {
