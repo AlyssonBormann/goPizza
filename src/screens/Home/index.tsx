@@ -2,15 +2,21 @@ import React from "react";
 import { MaterialIcons } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native";
 
+import { useTheme } from "styled-components";
+
 import happyEmoji from "@assets/happy.png";
+import { Search } from "@components/Search";
+
 import {
   Container,
   Header,
   Greeting,
   GreetingEmoji,
   GreetingText,
+  MenuHeader,
+  MenuItemsNumber,
+  Title,
 } from "./styles";
-import { useTheme } from "styled-components";
 
 export function Home() {
   const { COLORS } = useTheme();
@@ -26,6 +32,11 @@ export function Home() {
           <MaterialIcons name="logout" color={COLORS.TITLE} sizse={24} />
         </TouchableOpacity>
       </Header>
+      <Search onSearch={() => {}} onClear={() => {}} />
+      <MenuHeader>
+        <Title>Cardápio</Title>
+        <MenuItemsNumber>10 pizzas</MenuItemsNumber>
+      </MenuHeader>
     </Container>
   );
 }
