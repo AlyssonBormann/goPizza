@@ -11,6 +11,7 @@ import { useFonts, DMSans_400Regular } from "@expo-google-fonts/dm-sans";
 import theme from "./src/theme";
 import { AuthProvider } from "@hooks/auth";
 import { Home } from "@screens/Home";
+import { Product } from "@screens/Product";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
