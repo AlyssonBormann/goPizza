@@ -6,6 +6,7 @@ import { useTheme } from "styled-components";
 
 import happyEmoji from "@assets/happy.png";
 import { Search } from "@components/Search";
+import { ProductCar } from "@components/ProductCar";
 
 import {
   Container,
@@ -37,6 +38,30 @@ export function Home() {
         <Title>Cardápio</Title>
         <MenuItemsNumber>10 pizzas</MenuItemsNumber>
       </MenuHeader>
+      <ProductCar
+        data={{
+          id: "1",
+          name: "Pizza",
+          description: "Jacarander",
+          photo_url: "https://github.com/AlyssonBormann.png",
+        }}
+      />
+      <ProductCar
+        data={{
+          id: "2",
+          name: "Pizza",
+          description: "Jacarander",
+          photo_url: "https://github.com/AlyssonBormann.png",
+        }}
+      />
+      <ProductCar
+        data={{
+          id: "3",
+          name: "Pizza",
+          description: "Jacarander",
+          photo_url: "https://github.com/AlyssonBormann.png",
+        }}
+      />
     </Container>
   );
 }
