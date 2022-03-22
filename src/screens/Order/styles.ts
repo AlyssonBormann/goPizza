@@ -12,9 +12,9 @@ export const ContentScroll = styled.ScrollView.attrs({
   background-color: ${({ theme }) => theme.COLORS.BACKGROUND};
 `;
 
-export const Header = styled(LinearGradient).attrs(({ theme }) => {
-  colors: theme.COLORS.GRADIENT;
-})`
+export const Header = styled(LinearGradient).attrs(({ theme }) => ({
+  colors: theme.COLORS.GRADIENT,
+}))`
   padding: ${getStatusBarHeight() + 34}px 24px 0;
 `;
 
@@ -41,25 +41,25 @@ export const Form = styled.View`
 `;
 
 export const Title = styled.Text`
+  font-size: 32px;
+  margin-bottom: 32px;
+  text-align: center;
+
   ${({ theme }) => css`
     font-family: ${theme.FONTS.TITLE};
     color: ${theme.COLORS.SECONDARY_900};
   `}
-
-  font-size: 32px;
-  margin-bottom: 32px;
-  text-align: center;
 `;
 
 export const Label = styled.Text`
+  font-size: 14px;
+  margin-bottom: 16px;
+  text-align: center;
+
   ${({ theme }) => css`
     font-family: ${theme.FONTS.TEXT};
     color: ${theme.COLORS.SECONDARY_900};
   `}
-
-  font-size: 14px;
-  margin-bottom: 16px;
-  text-align: center;
 `;
 
 export const FormRow = styled.View`
@@ -73,12 +73,11 @@ export const InputGroup = styled.View`
 `;
 
 export const Price = styled.Text`
+  font-size: 14px;
+  margin: 24px 0;
+  align-self: flex-end;
   ${({ theme }) => css`
     font-family: ${theme.FONTS.TEXT};
     color: ${theme.COLORS.SECONDARY_900};
   `}
-
-  font-size: 14px;
-  margin: 24px 0;
-  align-self: flex-end;
 `;

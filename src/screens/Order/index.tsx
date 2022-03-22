@@ -5,7 +5,7 @@ import { ButtonBack } from "@components/ButtonBack";
 import { Button } from "@components/Button";
 import { Input } from "@components/Input";
 import { RadioButton } from "@components/RadioButton";
-import { PIZZA_TYPES } from "../../utils";
+import { PIZZA_TYPES } from "../../utils/pizzaTypes";
 
 import {
   Container,
@@ -35,7 +35,7 @@ export function Order() {
           <Label>Selecione um tamanho</Label>
 
           <Sizes>
-            {PIZZA_TYPES.PIZZA_TYPES.map((item) => (
+            {PIZZA_TYPES.map((item) => (
               <RadioButton
                 key={item.id}
                 title={item.name}

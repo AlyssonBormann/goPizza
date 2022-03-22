@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from "react";
-import { Alert, FlatList } from "react-native";
+import { Alert, FlatList, View } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native";
 import firestore from "@react-native-firebase/firestore";
