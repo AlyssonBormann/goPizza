@@ -118,14 +118,12 @@ export function Product() {
         photo_path: reference.fullPath,
       })
       .then(() => {
-        Alert.alert("Cadastro", "Pizza cadastrada com sucesso!");
+        navigation.navigate(SCREENS.Home);
       })
       .catch((error) => {
+        setIsLoading(false);
         console.log(error);
         Alert.alert("Erro ao cadastrar", "Não foi possível cadastrar a pizza.");
-      })
-      .finally(() => {
-        setIsLoading(false);
       });
   }
 
