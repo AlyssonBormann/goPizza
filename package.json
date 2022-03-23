@@ -2,8 +2,10 @@
   "name": "gopizza",
   "version": "1.0.0",
   "main": "index.js",
-  "hooks": {
-    "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+  "husky":{
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
   },
   "scripts": {
     "start": "expo start --dev-client",
