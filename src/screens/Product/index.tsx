@@ -32,7 +32,7 @@ import {
   InputGroupHeader,
   MaxCharacteres,
 } from "./styles";
-import { ProductProps } from "@src/components/ProductCar";
+import { ProductProps } from "@src/components/ProductCard";
 
 type PizzaResponse = ProductProps & {
   photo_path: string;

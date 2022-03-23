@@ -22,6 +22,10 @@ export const Container = styled.TouchableOpacity<RadioButtonProps>`
 
 export const Title = styled.Text`
   font-size: 16px;
+  font-family: ${({ theme }) => theme.FONTS.TEXT};
+  ${({ theme }) => css`
+    color: ${theme.COLORS.SECONDARY_900};
+  `};
 `;
 
 export const Radio = styled.View`

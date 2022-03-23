@@ -12,7 +12,7 @@ import happyEmoji from "@assets/happy.png";
 import { SCREENS } from "../../constants";
 
 import { Search } from "@components/Search";
-import { ProductCar, ProductProps } from "@components/ProductCar";
+import { ProductCard, ProductProps } from "@components/ProductCard";
 import { Load } from "@components/Load";
 
 import {
@@ -114,7 +114,7 @@ export function Home() {
             data={pizzas}
             keyExtractor={(item) => item.id}
             renderItem={({ item }) => (
-              <ProductCar data={item} onPress={() => handleOpen(item.id)} />
+              <ProductCard data={item} onPress={() => handleOpen(item.id)} />
             )}
             showsVerticalScrollIndicator={false}
             contentContainerStyle={{
