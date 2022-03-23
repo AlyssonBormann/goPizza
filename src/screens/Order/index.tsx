@@ -39,6 +39,8 @@ export function Order() {
   const [pizza, setPizza] = useState<PizzaResponse>({} as PizzaResponse);
   const [quantity, setQuantity] = useState(0);
   const [tableNumber, setTableNumber] = useState("");
+  const [sendingOrder, setSendinOrder] = useState(false);
+
   const navigation = useNavigation();
   const route = useRoute();
 
