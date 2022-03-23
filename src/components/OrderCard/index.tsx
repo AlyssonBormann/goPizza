@@ -19,7 +19,7 @@ export function OrderCard({ index, ...rest }: Props) {
     <Container {...rest} index={index}>
       <Image source={{ uri: "https://github.com/AlyssonBormann.png" }} />
       <Name>4 Quessos</Name>
-      <Description>Mesa 08 ⚫︎ Qnt: 05</Description>
+      <Description>Mesa 8 ⚫︎ Qnt: 05</Description>
       <StatusContainer status="Pronto">
         <StatusLabel status="Pronto">Pronto</StatusLabel>
       </StatusContainer>
