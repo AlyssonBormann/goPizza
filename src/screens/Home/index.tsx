@@ -6,6 +6,7 @@ import firestore from "@react-native-firebase/firestore";
 
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { useTheme } from "styled-components";
+import { useAuth } from "@hooks/auth";
 
 import happyEmoji from "@assets/happy.png";
 
@@ -29,6 +30,7 @@ import {
 
 export function Home() {
   const { COLORS } = useTheme();
+  const { user, signOut } = useAuth();
   const navigation = useNavigation();
   const [loading, setLoading] = useState(true);
   const [pizzas, setPizzas] = useState<ProductProps[]>([]);
@@ -70,7 +72,8 @@ export function Home() {
   }
 
   function handleOpen(id: string) {
-    navigation.navigate(SCREENS.Product, { id });
+    const route = user?.isAdmin ? SCREENS.Product : SCREENS.Order;
+    navigation.navigate(route, { id });
   }
 
   function handleAdd() {
@@ -90,7 +93,7 @@ export function Home() {
           <GreetingEmoji source={happyEmoji} />
           <GreetingText>Olá, Admin meu truta!</GreetingText>
         </Greeting>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={signOut}>
           <MaterialIcons name="logout" color={COLORS.TITLE} sizse={24} />
         </TouchableOpacity>
       </Header>
@@ -123,11 +126,13 @@ export function Home() {
               marginHorizontal: 24,
             }}
           />
-          <NewProductButton
-            title="Cadastrar pizza"
-            type="secondary"
-            onPress={handleAdd}
-          />
+          {user?.isAdmin && (
+            <NewProductButton
+              title="Cadastrar pizza"
+              type="secondary"
+              onPress={handleAdd}
+            />
+          )}
         </>
       )}
     </Container>

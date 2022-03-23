@@ -1,2 +1,4 @@
-import * as SCREENS from "./screens";
-export { SCREENS };
+import * as SCREENS from "./SCREENS";
+import * as COLLECTION from "./COLLECTION";
+
+export { SCREENS, COLLECTION };
