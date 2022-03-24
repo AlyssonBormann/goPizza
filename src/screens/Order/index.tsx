@@ -3,7 +3,7 @@ import { Platform, Alert } from "react-native";
 import firestore from "@react-native-firebase/firestore";
 
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { useAuth } from "@src/hooks/auth";
+import { useAuth } from "@hooks/auth";
 
 import { ButtonBack } from "@components/ButtonBack";
 import { Button } from "@components/Button";
