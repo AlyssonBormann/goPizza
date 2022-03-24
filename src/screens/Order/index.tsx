@@ -64,7 +64,7 @@ export function Order() {
     }
 
     if (!quantity) {
-      return Alert.alert("Pedido", "Informe a quantidade");
+      return Alert.alert("Pedido", "Informe a quantidade.");
     }
 
     setSendingOrder(true);
