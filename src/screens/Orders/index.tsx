@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Alert } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 import firestore from "@react-native-firebase/firestore";
 
@@ -14,6 +15,23 @@ import { Container, Header, Title } from "./styles";
 export function Orders() {
   const { user } = useAuth();
   const [orders, setOrders] = useState<OrderProps[]>([]);
+
+  function handlePizzaDelivery(id: string) {
+    Alert.alert("Pedido", "Confirma que a pizza foi entregue?", [
+      {
+        text: "Não",
+        style: "cancel",
+      },
+      {
+        text: "Sim",
+        onPress: () => {
+          firestore().collection(COLLECTION.ORDERS).doc(id).update({
+            status: "Entregue",
+          });
+        },
+      },
+    ]);
+  }
 
   useEffect(() => {
     const subscribe = firestore()
@@ -46,7 +64,12 @@ export function Orders() {
         data={orders}
         keyExtractor={(item) => item.id}
         renderItem={({ item, index }) => (
-          <OrderCard index={index} data={item} />
+          <OrderCard
+            index={index}
+            data={item}
+            disabled={item.status === "Entregue"}
+            onPress={() => handlePizzaDelivery(item.id)}
+          />
         )}
       />
     </Container>
